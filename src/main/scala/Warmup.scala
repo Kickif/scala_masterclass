@@ -2,9 +2,9 @@ import scala.annotation.tailrec
 
 object Warmup {
 
-  def sum(begin: Int, end: Int) : Int = {
+  def sum(begin: Int, end: Int): Int = {
     @tailrec
-    def sum_tail(acc:Int, begin:Int, end: Int) : Int = {
+    def sum_tail(acc: Int, begin: Int, end: Int): Int = {
       if (begin == end)
         acc + end
       else
@@ -16,7 +16,8 @@ object Warmup {
     else
       sum_tail(0, begin, end)
   }
-  def sum_rec(begin: Int, end: Int) : Int = {
+
+  def sum_rec(begin: Int, end: Int): Int = {
     if (begin == end)
       begin
     else
@@ -56,10 +57,12 @@ object Warmup {
       fib_tail(1, 1, n)
   }
 
-  def isValid(expr:String) : Boolean = {
-    @tailrec def isValid_tail(count : Int, expr:String) : Boolean = {
+  def isValid(expr: String): Boolean = {
+    @tailrec def isValid_tail(count: Int, expr: String): Boolean = {
       if (expr == "")
         count == 0
+      else if (count < 0)
+        false
       else {
         expr.head match {
           case '(' => isValid_tail(count + 1, expr.tail)
@@ -68,6 +71,14 @@ object Warmup {
         }
       }
     }
+
     isValid_tail(0, expr)
+  }
+
+  def generate(n: Int): Set[String] = {
+    if (n == 1)
+      Set("()")
+    else
+      (for (expr <- generate(n - 1)) yield Set("()" + expr, "(" + expr + ")", expr + "()")).flatten
   }
 }

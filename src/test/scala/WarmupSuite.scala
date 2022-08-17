@@ -48,6 +48,12 @@ class WarmupSuite extends FunSuite {
     assert(!Warmup.isValid("(()))"))
   }
 
+  test("Generate all valid bracket expressions") {
+    assertEquals(Warmup.generate(1), Set("()"))
+    assertEquals(Warmup.generate(2), Set("()()", "(())"))
+    assertEquals(Warmup.generate(3), Set("()()()", "()(())", "(())()", "(()())", "((()))"))
+  }
+
 
 
 }
